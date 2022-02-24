@@ -129,7 +129,7 @@ public class Player extends Entity {
                         gp.obj[i] = null;
                         hasKey--;
                     }
-                    System.out.println("Ksey: "+ hasKey);
+                    System.out.println("Key: "+ hasKey);
                     break;
             }
         }
