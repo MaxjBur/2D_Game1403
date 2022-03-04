@@ -3,17 +3,23 @@ package com.company.entity;
 
 import com.company.GamePanel;
 import com.company.KeyHandler;
+import object.OBJ_Boots;
+import object.OBJ_Chest;
+import object.OBJ_Door;
+import object.OBJ_Key;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler KeyH;
 
+    int oldRoom;
     public final int screenX;
     public final int screenY;
     public int hasKey = 0;
@@ -128,7 +134,53 @@ public class Player extends Entity {
                 case "Door":
                     if (hasKey >0){
                         gp.playSE(3);
-                        gp.obj[i] = null;
+                        Random random = new Random();
+                        int nextRoom = random.nextInt(2); // CHANGE 2 -> (APPROPRIATE NUMBER), WHEN ADDING NEW DUNGEON ROOMS
+
+                        while (nextRoom == oldRoom) { // MAKES IT SO THAT YOU CANNOT GENERATE THE SAME ROOM TWICE IN A ROW
+                            nextRoom = random.nextInt(2);
+                        }
+
+                        if (nextRoom == 0) {
+                            for (int j = 0; j < 8; j++) {
+                                gp.obj[j]= null; // REMOVES ALL OLD ROOM OBJECTS
+                            }
+
+                            gp.obj[0]= new OBJ_Key(); // CREATES NEW KEY
+                            gp.obj[0].worldX = 23* gp.tileSize;
+                            gp.obj[0].worldY = 19*gp.tileSize;
+
+                            gp.obj[4]  = new OBJ_Door(); // CREATES NEW ROOM DOOR
+                            gp.obj[4].worldX = 26 * gp.tileSize;
+                            gp.obj[4].worldY = 21*gp.tileSize;
+
+                            gp.obj[7]  = new OBJ_Boots(); // CREATES NEW ROOM BOOTS
+                            gp.obj[7].worldX = 23 * gp.tileSize;
+                            gp.obj[7].worldY= 23 *gp.tileSize;
+
+                            gp.tileM.loadMap("/maps/START1.txt"); // LOADS NEW ROOM
+                            oldRoom = 0;
+                        }
+                        else if (nextRoom == 1) {
+                            for (int j = 0; j < 8; j++) {
+                                gp.obj[j]= null; // REMOVES ALL OLD ROOM OBJECTS
+                            }
+
+                            gp.obj[0]= new OBJ_Key();
+                            gp.obj[0].worldX = 23* gp.tileSize;
+                            gp.obj[0].worldY = 23*gp.tileSize;
+
+                            gp.obj[4]  = new OBJ_Door();
+                            gp.obj[4].worldX = 20 * gp.tileSize;
+                            gp.obj[4].worldY = 21*gp.tileSize;
+
+                            gp.obj[6]  = new OBJ_Chest();
+                            gp.obj[6].worldX = 23 * gp.tileSize;
+                            gp.obj[6].worldY = 19 *gp.tileSize;
+
+                            gp.tileM.loadMap("/maps/START2.txt");
+                            oldRoom = 1;
+                        }
                         hasKey--;
                         gp.ui.showMessage("You opened the door!");
                     }
