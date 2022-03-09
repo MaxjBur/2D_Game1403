@@ -26,12 +26,13 @@ public class GamePanel extends JPanel implements Runnable{
     public final int worldWidth = tileSize * maxWorldCol;  //can delete
     public final int worldHeight = tileSize * maxWorldRow; //can delete
 
+
     // FPS
     int FPS = 60;
 
     //SYSTEM
     public TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -43,6 +44,12 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this,keyH);
     public SuperObject obj[] = new SuperObject[10];
     public Entity npc[]= new Entity[10];
+
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
 
 
     // SET PLAYER DEFAULT POSITION
@@ -62,8 +69,8 @@ public class GamePanel extends JPanel implements Runnable{
 
         aSetter.setObject();
         aSetter.setNPC();
-
         playMusic(0);
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -108,7 +115,14 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-        player.update();
+        if (gameState == playState) {
+
+            player.update();
+        }
+        if (gameState == pauseState){
+
+
+        }
     }
 
     public void paintComponent(Graphics g) {
