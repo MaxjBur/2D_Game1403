@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.entity.Entity;
 import com.company.entity.Player;
 import com.company.tile.TileManager;
 import object.SuperObject;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
     //ENTITY AND OBJECT
     public Player player = new Player(this,keyH);
     public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[]= new Entity[10];
 
 
     // SET PLAYER DEFAULT POSITION
@@ -59,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
 
         aSetter.setObject();
+        aSetter.setNPC();
 
         playMusic(0);
     }
@@ -121,6 +124,13 @@ public class GamePanel extends JPanel implements Runnable{
             if(obj[i] != null) {
                 obj[i].draw(g2, this);
             }
+        }
+        //NPC
+        for (int i = 0; i < npc.length; i++) {
+            if (npc[i]!=null){
+                npc[i].draw(g2);
+            }
+
         }
 
     // PLAYER

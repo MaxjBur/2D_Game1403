@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class Player extends Entity {
 
-    GamePanel gp;
+
     KeyHandler KeyH;
 
     int oldRoom;
@@ -25,8 +25,9 @@ public class Player extends Entity {
     public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler KeyH) {
+        super(gp);
 
-        this.gp = gp;
+
         this.KeyH= KeyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -62,6 +63,7 @@ public class Player extends Entity {
         catch(IOException e){
             e.printStackTrace();
         }
+
     }
 
     public void update() {
