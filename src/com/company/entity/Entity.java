@@ -16,9 +16,13 @@ public class Entity {
     public Rectangle solidArea = new Rectangle(0,0,48,48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
+    String dialogues[]= new String[20];
 
     public Entity(GamePanel gp) {
         this.gp = gp;
+    }
+    public void speak(){
+
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;

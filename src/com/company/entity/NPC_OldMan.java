@@ -13,6 +13,7 @@ public class NPC_OldMan extends Entity {
         direction = "down";
         speed = 1;
         getImage();
+        setDialogue();
 
     }
     public void getImage() {
@@ -26,9 +27,18 @@ public class NPC_OldMan extends Entity {
             right1 = ImageIO.read(getClass().getResourceAsStream("/npc/npc7.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/npc/npc8.png"));
         }
+
         catch(IOException e){
             e.printStackTrace();
         }
+
+
+    }
+    public void setDialogue(){
+        dialogues[0]="Hello, lad.";
+    }
+    public void  speak(){
+        gp.ui.currentDialogue = dialogues[0];
 
     }
 }
